@@ -1,0 +1,18 @@
+Verify jar:
+	jarsigner -verify -certs -verbose .\SortingLibSigned.jar
+
+Sign jra:
+	keytool -genkey -alias dsiuda -keystore my-store
+	jarsigner -keystore my-store -signedjar SortingLibSigned.jar SortingLib.jar dsiuda
+
+Exporting public key:
+	 keytool -export -keystore my-store -alias dsiuda -file PublicKey.cer
+
+Importing public key:
+	keytool -import -alias foreign -file PublicKey.cer -keystore receiver-store
+
+Displaying certificate:
+	keytool -printcert -file PublicKey.cer
+
+Displaying key from store:
+	keytool -list -keystore my-store -alias dsiuda
